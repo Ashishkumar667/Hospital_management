@@ -29,6 +29,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 TEMPLATES = [
@@ -58,10 +59,16 @@ DATABASES = {
     }
 }
 
-
-DEBUG = True
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+import os
+# DEBUG = True
+ALLOWED_HOSTS = ['*']
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 ROOT_URLCONF = 'hospital_api.urls'
 
-SECRET_KEY='!rme%^+3bb)iavyw38ggy@y6r(+vpei(=5c&y1664%8ynz9z!c'
+# SECRET_KEY='!rme%^+3bb)iavyw38ggy@y6r(+vpei(=5c&y1664%8ynz9z!c'
+
+
+SECRET_KEY = os.environ.get('SECRET_KEY', 'fallback-secret')
+DEBUG = os.environ.get('DEBUG', 'True') == 'True'
+

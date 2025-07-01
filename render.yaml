@@ -1,0 +1,12 @@
+# render.yaml
+services:
+  - type: web
+    name: hospital-api
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn hospital_api.wsgi:application
+    envVars:
+      - key: SECRET_KEY
+        value: '!rme%^+3bb)iavyw38ggy@y6r(+vpei(=5c&y1664%8ynz9z!c'
+      - key: DEBUG
+        value: False
