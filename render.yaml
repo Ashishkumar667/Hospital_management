@@ -1,9 +1,11 @@
-# render.yaml
 services:
   - type: web
     name: hospital-api
     env: python
-    buildCommand: pip install -r requirements.txt
+    buildCommand: |
+      pip install -r requirements.txt
+      python manage.py migrate
+      python manage.py collectstatic --noinput
     startCommand: gunicorn hospital_api.wsgi:application
     envVars:
       - key: SECRET_KEY
